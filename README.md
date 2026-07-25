@@ -67,3 +67,61 @@ Traditional food recommendation engines rely heavily on simple filtering (e.g., 
                                   │ 35+ Nutrient Numerical    │ ──► StandardScaler         [ k-NN Engine ]
                                   │ Metrics                   │                            Metric: Cosine
                                   └───────────────────────────┘                            Neighbors: k=10
+
+
+
+
+📁 Project Directory Structure
+Plaintext
+smart-food-recommender/
+│
+├── app.py              # Streamlit Web UI application logic & session state
+├── main.py             # CLI runner script for terminal environment
+├── food.csv            # Nutritional food item dataset
+├── requirements.txt    # Python dependencies
+├── .gitignore          # Git exclusion config
+└── README.md           # Master documentation file
+
+
+Installation Steps
+Clone the repository:
+
+Bash
+git clone [https://github.com/YOUR-USERNAME/smart-food-recommender.git](https://github.com/YOUR-USERNAME/smart-food-recommender.git)
+cd smart-food-recommender
+Set up a Virtual Environment:
+
+Windows (PowerShell):
+
+PowerShell
+python -m venv venv
+.\venv\Scripts\Activate
+macOS/Linux:
+
+Bash
+python3 -m venv venv
+source venv/bin/activate
+Install Dependencies:
+
+Bash
+pip install -r requirements.txt
+🖥️ Usage Guide
+Option 1: Run the Web Dashboard
+Launch the interactive Streamlit application in your default web browser:
+
+Bash
+python -m streamlit run app.py
+Option 2: Run the Command-Line Interface (CLI)
+For lightweight execution and debugging directly inside your terminal:
+
+Bash
+python main.py
+🔮 Future Enhancements
+[ ] Allergen & Intolerance Filtering: Hard-exclude items based on allergens (e.g., gluten-free, dairy-free, nut-free).
+
+[ ] Caloric Target Integration: Auto-compute required macros based on user BMR/TDEE calculations.
+
+[ ] Multi-Item Meal Plan Generation: Upgrade vector output to construct balanced breakfast, lunch, and dinner sets rather than individual item retrieval.
+
+📄 License
+Distributed under the MIT License. See LICENSE for more information.

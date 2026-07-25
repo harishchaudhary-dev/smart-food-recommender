@@ -12,11 +12,13 @@ The system utilizes a **Content-Based Filtering** approach powered by $k$-Neares
 ---
 
 ## 📌 Table of Contents
+
 - [Architecture & Design Philosophy](#-architecture--design-philosophy)
 - [Key Features](#-key-features)
 - [Machine Learning Pipeline](#-machine-learning-pipeline)
 - [Dataset Overview](#-dataset-overview)
 - [Project Directory Structure](#-project-directory-structure)
+- [Source Code & Implementation](#-source-code--implementation)
 - [Getting Started](#-getting-started)
 - [Usage Guide](#-usage-guide)
 - [Future Enhancements](#-future-enhancements)
@@ -27,6 +29,7 @@ The system utilizes a **Content-Based Filtering** approach powered by $k$-Neares
 ## 🏗️ Architecture & Design Philosophy
 
 Traditional food recommendation engines rely heavily on simple filtering (e.g., "High Protein only"). This project solves the **multi-objective optimization problem** in personalized nutrition by combining:
+
 1. **Unstructured Text Processing (TF-IDF)**: Extracts semantic meaning from free-text user preferences.
 2. **One-Hot Categorical Encoding**: Prevents implicit order assumptions across discrete food categories.
 3. **Continuous Feature Standardization (Z-score Scaling)**: Normalizes 35+ micro/macronutrients with vastly different scales (e.g., grams vs. micrograms).
@@ -46,3 +49,21 @@ Traditional food recommendation engines rely heavily on simple filtering (e.g., 
 ---
 
 ## 🔬 Machine Learning Pipeline
+
+```text
+                                  ┌───────────────────────────┐
+                                  │ Description (Text Input)  │ ──► TF-IDF Vectorizer (max_features=600)
+                                  └───────────────────────────┘
+                                                │
+                                  ┌───────────────────────────┐
+                                  │ Category (Discrete Group) │ ──► One-Hot Encoder (handle_unknown='ignore')
+                                  └───────────────────────────┘
+                                                │
+┌──────────────────────┐                        │                        ┌───────────────────────────────────┐
+│ Raw Input Data       │ ──► [ ColumnTransformer Preprocess Engine ] ──► │ Unified Dense/Sparse Matrix       │
+│ (food.csv)           │                        │                        └───────────────────────────────────┘
+└──────────────────────┘                        │                                          │
+                                  ┌───────────────────────────┐                            ▼
+                                  │ 35+ Nutrient Numerical    │ ──► StandardScaler         [ k-NN Engine ]
+                                  │ Metrics                   │                            Metric: Cosine
+                                  └───────────────────────────┘                            Neighbors: k=10
